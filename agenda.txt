@@ -4,17 +4,17 @@ Backend Development
 
 1. Developed the whole codebase in TypeScript.✅
 2. Set up the server.✅
-3. Added routes.
-4. Use Zod for validation.
-5. Use JWT for authentication.
-6. Use Prisma for the database.
-7. Use Docker  for PostgreSQL.
+3. Added routes.✅
+4. Use Zod for validation.✅
+5. Use JWT for authentication.✅
+6. Use Prisma for the database.✅
+7. Use Docker  for PostgreSQL.✅
 
 Frontend Development
 
-1. Make a sign-in page.
+1. Make a sign-in page.✅
 2. Use dynamic pages for project creation.✅
-3. Use NextAuth or in-house authentication for authentication.
+3. Use NextAuth or in-house authentication for authentication.✅
 
 Additional Tasks
 1. Transition the whole codebase to Turborepo.
