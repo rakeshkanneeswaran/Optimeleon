@@ -13,7 +13,7 @@ Backend Development
 Frontend Development
 
 1. Make a sign-in page.
-2. Use dynamic pages for project creation.
+2. Use dynamic pages for project creation.✅
 3. Use NextAuth or in-house authentication for authentication.
 
 Additional Tasks
