@@ -9,6 +9,36 @@ const JWT_SECRET = "your_secret_key";
 const router = Router();
 
 // POST route to create a project
+
+router.get("/", async (req, res) => {
+    var token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).send("Unauthorized");
+    }
+    // Remove the 'Bearer ' prefix from the token
+    token = token.replace("Bearer ", "");
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
+        if (!decoded.id) {
+            return res.status(403).send("Forbidden");
+        }
+   
+        const project = await prismaClient.project.findMany({
+            where: {
+                userId : decoded.id
+            }
+        })
+
+
+        return res.json({ project });
+    } catch (error) {
+        console.error("Error creating project:", error);
+        return res.status(500).send("Internal Server Error");
+    }
+})
+
 router.post("/", async (req, res) => {
     console.log("somethig the hit the server")
     console.log(req.body);
