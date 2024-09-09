@@ -1,0 +1,46 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+jspm_packages/
+
+# Build output
+dist/
+build/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*.local
+
+# IDE and Editor directories
+.vscode/
+.idea/
+
+# OS-specific files
+*.swp
+*.swo
+*.swn
+*.tmp
+
+# npm package lock file
+package-lock.json
+yarn.lock
+
+# Prisma
+prisma/migrations/
+prisma/dev.db
+
+# Docker
+.docker/
+docker-compose.override.yml
