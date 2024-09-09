@@ -33,7 +33,7 @@ const SignUp: React.FC = () => {
       setError(error.response?.data?.message || "Sign Up Failed");
     }
   };
-
+  
   return (
     <section className="bg-white min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md p-6 bg-gray-100 rounded-lg shadow-md">
