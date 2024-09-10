@@ -1,84 +1,137 @@
-```markdown
+
 # Full Stack Application
 
-This repository contains both the frontend and backend of the application.
+This repository contains the full-stack application with a backend service, a frontend service, and a database processor microservice. 
 
-## Backend
+## Backend Service
 
-The backend is built using **Node.js**, **Prisma**, and **PostgreSQL**.
+### Solution Description:
+Built with Node.js, Prisma, PostgreSQL, and Kafka for asynchronous messaging. Provides APIs for project management authenticated via JWT tokens. Kafka ensures reliable script update processing.
 
-### Steps to Set Up Backend
+### Justification of Decisions:
+- **Technology Stack**: Chosen for scalability (Node.js), robust data handling (Prisma, PostgreSQL), and reliable messaging (Kafka).
+- **JWT Authentication**: secure for API authentication.
+- **Kafka Integration**: Ensures scalable and fault-tolerant script updates decoupled from immediate database operations.
+
+### Main Challenges:
+- Asynchronous Processing
+- Integration Complexity
+- Security and Scalability
+
+## Frontend Service
+
+### Solution Description:
+Built using Next.js and dynamic routing. Interacts with backend APIs for seamless project management.
+
+### Justification of Decisions:
+- **Next.js Framework**: For SEO Optimisation , Dynamic routing , Enforces standard project structure..
+- **API Interaction**: Separates frontend and backend concerns for scalability and maintainability.
+
+### Main Challenges:
+- Dynamic UI Updates
+- SEO Optimization
+- Responsive Design and Cross-Browser Compatibility
+
+## Database Processor Microservice
+
+### Solution Description:
+Consumes Kafka messages to update a PostgreSQL database based on backend-triggered script events. This enables distributing work across multiple consumer groups for scalability.
+
+### Justification of Decisions:
+- **Microservice Architecture**: Scalable and fault-isolated for handling database updates asynchronously.
+- **Kafka Consumer**: Reliable message delivery under high load, reduces latency between backend triggers and database updates.
+
+### Main Challenges:
+- Message Ordering and Processing
+- Error Handling and Message Delivery Guarantees
+- Performance Optimization
+
+## System Design
+
+![Untitled-2024-09-10-1438](https://github.com/user-attachments/assets/bfeb85e6-8a82-427a-adbb-2bdae7855ec1)
+
+## Setup Instructions
+
+### Backend
 
 1. Navigate to the `backend` folder:
    ```bash
    cd backend
    ```
 
-2. Install the required dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Set up a **PostgreSQL** database using Docker or any other preferred service. 
-   - If using Docker, run the following command:
-     ```bash
-     docker run --name postgres-db -e POSTGRES_PASSWORD=yourpassword -d -p 5432:5432 postgres
-     ```
-
-4. Create a `.env` file in the `database` folder (inside the backend directory) and set the `DATABASE_URL` environment variable. Here's an example of the `.env` file:
-   ```env
-   DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
+3. Set up PostgreSQL:
+   ```bash
+   docker run --name postgres-db -e POSTGRES_PASSWORD=yourpassword -d -p 5432:5432 postgres
    ```
 
-5. Apply the Prisma migrations and generate the Prisma client:
+4. Set up Kafka:
+   ```bash
+   docker run --name kafka-container -d -p 9092:9092 apache/kafka:3.7.1
+   ```
+
+5. Configure environment (`.env` file in backend folder):
+   ```env
+   DATABASE_URL="postgresql://user:password@localhost:5432/dbname?schema=public"
+   KAFKA_BROKER="localhost:9092"
+   KAFKA_TOPIC="optimelon-update"
+   ```
+
+6. Apply migrations and generate Prisma client:
    ```bash
    npx prisma migrate dev
    npx prisma generate
    ```
 
-6. Start the backend server:
+7. Start the backend server:
    ```bash
    npm run start
    ```
 
-### Additional Information
+### Database Processor Microservice
 
-- The backend uses **Zod** for request/input validation.
-- It uses **JWT** for authentication.
+1. Navigate to the `dbprocess` folder:
+   ```bash
+   cd dbprocess
+   ```
 
-## Frontend
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-The frontend is built using **Next.js**.
+3. Start the database processor microservice:
+   ```bash
+   npm run start
+   ```
 
-### Steps to Set Up Frontend
+### Frontend
 
 1. Navigate to the `frontend` folder:
    ```bash
    cd frontend
    ```
 
-2. Install the required dependencies:
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Once the backend is up and running, you can start the development server:
+3. Start the frontend development server:
    ```bash
    npm run dev
    ```
 
-4. Alternatively, start the server with port **3001** (since port 3000 is used by the backend):
+4. Alternatively, start with port **3001**:
    ```bash
    npm run start
    ```
 
 ### Additional Information
 
-- The frontend uses dynamic routing to generate new projects.
-
-## Final Notes
-
-After completing these steps, both the backend and frontend should be running, and the application will be ready for use.
+Ensure PostgreSQL, Kafka, and the `dbprocess` microservice are running for full application functionality.
 ```
-
-Now, this version ensures that the backend is started first, followed by the frontend.
