@@ -1,34 +1,9 @@
-Here’s a `README.md` file that outlines the steps you mentioned:
+Here's the updated `README.md` with the instruction to start the backend first and then the frontend:
 
 ```markdown
 # Full Stack Application
 
 This repository contains both the frontend and backend of the application.
-
-## Frontend
-
-The frontend is built using **React**.
-
-### Steps to Set Up Frontend
-
-1. Navigate to the `frontend` folder:
-   ```bash
-   cd frontend
-   ```
-
-2. Install the required dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Once the installation is complete, you can start the development server:
-   ```bash
-   npm run dev
-   ```
-4. Once the installation is complete, you can start the  server (Change the port to 3001 because the 3000 is used by the Backend):
-   ```bash
-   npm run start
-   ```
 
 ## Backend
 
@@ -63,13 +38,49 @@ The backend is built using **Node.js**, **Prisma**, and **PostgreSQL**.
    npx prisma generate
    ```
 
-6. Exit the `database` folder and start the server:
+6. Start the backend server:
    ```bash
-   cd ..
    npm run start
    ```
 
-Now, both the frontend and backend should be running, and the application is ready for use.
+### Additional Information
+
+- The backend uses **Zod** for request/input validation.
+- It uses **JWT** for authentication.
+
+## Frontend
+
+The frontend is built using **React**.
+
+### Steps to Set Up Frontend
+
+1. Navigate to the `frontend` folder:
+   ```bash
+   cd frontend
+   ```
+
+2. Install the required dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Once the backend is up and running, you can start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Alternatively, start the server with port **3001** (since port 3000 is used by the backend):
+   ```bash
+   npm run start
+   ```
+
+### Additional Information
+
+- The frontend uses dynamic routing to generate new projects.
+
+## Final Notes
+
+After completing these steps, both the backend and frontend should be running, and the application will be ready for use.
 ```
 
-This `README.md` provides clear, step-by-step instructions for setting up both the frontend and backend of your project. It assumes the developer has Docker for PostgreSQL and Prisma for database management.
+Now, this version ensures that the backend is started first, followed by the frontend.
