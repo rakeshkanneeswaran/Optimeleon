@@ -15,7 +15,7 @@ interface DataToUpdate {
     script: string;
 }
 
-async function createTopicIfNotExists() {
+export async function createTopicIfNotExists() {
     const admin = kafka.admin();
     try {
         await admin.connect();

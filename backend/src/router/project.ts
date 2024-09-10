@@ -2,7 +2,7 @@ import { Router } from "express";
 import { PrismaClient } from "@prisma/client";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { createPojectSchema, updatePojectSchema } from "../types";
-import { processDataUpdate } from "./kafka"; // Adjust path as needed
+import { processDataUpdate } from "../kafka/kafka"; // Adjust path as needed
 
 const prismaClient = new PrismaClient();
 const JWT_SECRET = "your_secret_key";
@@ -107,7 +107,7 @@ router.get("/", async (req, res) => {
 });
 
 // PUT route to update a project
-router.post("/update", async (req, res) => {
+router.put("/update", async (req, res) => {
     const parsedBody = updatePojectSchema.safeParse(req.body);
     const token = req.headers.authorization;
 
@@ -135,7 +135,9 @@ router.post("/update", async (req, res) => {
             script: parsedBody.data.script
         });
 
-        return res.status(202).send('Update request received and is being processed.');
+        return res.status(202).json({
+            "message": 'Update request received and is being processed.'
+        });
     } catch (error) {
         console.error("Error updating project:", error);
         return res.status(500).send("Internal Server Error");
