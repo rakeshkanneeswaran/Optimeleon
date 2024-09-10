@@ -1,5 +1,3 @@
-Here's the updated `README.md` with the instruction to start the backend first and then the frontend:
-
 ```markdown
 # Full Stack Application
 
