@@ -28,7 +28,8 @@ const ProjectsPage: React.FC = () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
         });
-        setProjects(response.data.project);
+        setProjects(response.data.projects);
+        console.log(response.data.projects);
       } catch (error) {
         setError("Failed to fetch projects");
       } finally {
@@ -55,7 +56,7 @@ const ProjectsPage: React.FC = () => {
     if (!selectedProject) return;
 
     try {
-      await axios.put(
+      const response  = await axios.put(
         `http://127.0.0.1:3001/api/project/update`,
         {
           name: editName,
@@ -69,6 +70,10 @@ const ProjectsPage: React.FC = () => {
           }
         }
       );
+
+      if (response.status == 202) {
+        alert(response.data.message);
+      }
       // Update local state to reflect changes
       setProjects(projects.map(project =>
         project.id === selectedProject.id
@@ -115,7 +120,7 @@ const ProjectsPage: React.FC = () => {
           </div>
         ) : error ? (
           <p className="text-center text-red-600 font-semibold">{error}</p>
-        ) : projects.length === 0 ? (
+        ) : projects.length == 0 ? (
           <p className="text-center text-lg font-medium">No projects found</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
