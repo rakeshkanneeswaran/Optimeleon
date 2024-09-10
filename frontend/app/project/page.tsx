@@ -25,7 +25,7 @@ const Home: React.FC = () => {
           
         const { id } = response.data;
         setProjectName('');
-        router.push(`/project/${id}`); // Redirect to the project page
+        router.push(`/project/${id}/`); // Redirect to the project page
       } catch (error) {
         console.error('Failed to create project:', error);
       } finally {

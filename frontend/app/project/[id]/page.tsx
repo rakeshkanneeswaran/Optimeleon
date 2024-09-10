@@ -11,6 +11,10 @@ const HomePage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    setProjectName(JSON.stringify(params.projectName));
+  }, []);
+
   // Handle project update
   const onSubmit = async () => {
     if (!projectName) {
