@@ -48,7 +48,7 @@ The backend is built using **Node.js**, **Prisma**, and **PostgreSQL**.
 
 ## Frontend
 
-The frontend is built using **React**.
+The frontend is built using **Next.js**.
 
 ### Steps to Set Up Frontend
 
