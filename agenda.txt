@@ -9,6 +9,7 @@ Backend Development
 5. Use JWT for authentication.✅
 6. Use Prisma for the database.✅
 7. Use Docker  for PostgreSQL.✅
+8. Add DB Processor (Use Apache kafka or Redis)(pending)
 
 Frontend Development
 
@@ -17,5 +18,8 @@ Frontend Development
 3. Use NextAuth or in-house authentication for authentication.✅
 
 Additional Tasks
-1. Transition the whole codebase to Turborepo.
+
 2. Explore GitHub Actions for CI/CD.
+
+Under consideration
+Transition the whole codebase to Turborepo.(not require since we are having the single Frontend there for no need of sharing the compoents is needed)
