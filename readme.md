@@ -23,7 +23,11 @@ The frontend is built using **React**.
 
 3. Once the installation is complete, you can start the development server:
    ```bash
-   npm start
+   npm run dev
+   ```
+4. Once the installation is complete, you can start the  server (Change the port to 3001 because the 3000 is used by the Backend):
+   ```bash
+   npm run start
    ```
 
 ## Backend
