@@ -107,7 +107,7 @@ router.get("/", async (req, res) => {
 });
 
 // PUT route to update a project
-router.put("/update", async (req, res) => {
+router.post("/update", async (req, res) => {
     const parsedBody = updatePojectSchema.safeParse(req.body);
     const token = req.headers.authorization;
 

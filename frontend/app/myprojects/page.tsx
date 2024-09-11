@@ -56,7 +56,7 @@ const ProjectsPage: React.FC = () => {
     if (!selectedProject) return;
 
     try {
-      const response  = await axios.put(
+      const response  = await axios.post(
         `http://127.0.0.1:3001/api/project/update`,
         {
           name: editName,
