@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A/B Testing Page</title>
+    <script src="/script.js"></script> <!-- Include the generated script here -->
+</head>
+<body>
+    <h1>Welcome to Our Website!</h1>
+    <button id="cta-button">Click Me!</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const variation = urlParams.get('variation');
+
+            if (variation === 'a') {
+                document.getElementById('cta-button').textContent = 'Buy Now';
+            } else if (variation === 'b') {
+                document.getElementById('cta-button').textContent = 'Add to Cart';
+            } else if (variation === 'c') {
+                document.getElementById('cta-button').textContent = 'Subscribe Now';
+            } else if (variation === 'd') {
+                document.getElementById('cta-button').textContent = 'Learn More';
+            } else {
+                document.getElementById('cta-button').textContent = 'Click Me!';
+            }
+        });
+    </script>
+</body>
+</html>
