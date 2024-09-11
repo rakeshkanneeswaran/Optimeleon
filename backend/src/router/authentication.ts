@@ -1,6 +1,3 @@
-import express from "express";
-import cookieParser from "cookie-parser";
-import cors from "cors";
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
