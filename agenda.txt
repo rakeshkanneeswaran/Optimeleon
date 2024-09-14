@@ -9,7 +9,8 @@ Backend Development
 5. Use JWT for authentication.✅
 6. Use Prisma for the database.✅
 7. Use Docker  for PostgreSQL.✅
-8. Add DB Processor (Use Apache kafka or Redis)(pending)
+8. Add DB Processor ✅
+9. Added test files for project and user routes. ✅
 
 Frontend Development
 

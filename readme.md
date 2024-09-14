@@ -1,3 +1,6 @@
+Here's the updated documentation with the added steps for running tests:
+
+---
 
 # Full Stack Application
 
@@ -10,7 +13,7 @@ Built with Node.js, Prisma, PostgreSQL, and Kafka for asynchronous messaging. Pr
 
 ### Justification of Decisions:
 - **Technology Stack**: Chosen for scalability (Node.js), robust data handling (Prisma, PostgreSQL), and reliable messaging (Kafka).
-- **JWT Authentication**: secure for API authentication.
+- **JWT Authentication**: Secure for API authentication.
 - **Kafka Integration**: Ensures scalable and fault-tolerant script updates decoupled from immediate database operations.
 
 ### Main Challenges:
@@ -24,7 +27,7 @@ Built with Node.js, Prisma, PostgreSQL, and Kafka for asynchronous messaging. Pr
 Built using Next.js and dynamic routing. Interacts with backend APIs for seamless project management.
 
 ### Justification of Decisions:
-- **Next.js Framework**: For SEO Optimisation , Dynamic routing , Enforces standard project structure..
+- **Next.js Framework**: For SEO Optimization, Dynamic Routing, and Enforcing Standard Project Structure.
 - **API Interaction**: Separates frontend and backend concerns for scalability and maintainability.
 
 ### Main Challenges:
@@ -48,7 +51,7 @@ Consumes Kafka messages to update a PostgreSQL database based on backend-trigger
 
 ## System Design
 
-![Untitled-2024-09-10-1438](https://github.com/user-attachments/assets/bfeb85e6-8a82-427a-adbb-2bdae7855ec1)
+![System Design](https://github.com/user-attachments/assets/bfeb85e6-8a82-427a-adbb-2bdae7855ec1)
 
 ## Setup Instructions
 
@@ -131,7 +134,44 @@ Consumes Kafka messages to update a PostgreSQL database based on backend-trigger
    npm run start
    ```
 
+### Running Tests
+
+1. Before running tests, update the Prisma client import for mocking:
+   - Navigate to `backend/src/libs/prismaClient.ts`.
+   - Replace the import statement and the Prisma client initialization as follows:
+
+     ```typescript
+     import prismaClientMocked from '../__mocks__/db';
+     import { PrismaClient } from '@prisma/client';
+
+     // const prismaClient = prismaClientMocked
+     const prismaClient = new PrismaClient();
+     // const prismaClient = new PrismaClient();
+     export default prismaClient;
+     ```
+
+     Change to:
+
+     ```typescript
+     import prismaClientMocked from '../__mocks__/db';
+     import { PrismaClient } from '@prisma/client';
+
+     const prismaClient = prismaClientMocked;
+     // const prismaClient = new PrismaClient();
+     export default prismaClient;
+     ```
+
+2. Run the tests:
+   ```bash
+   npm run test
+   ```
+
+   This will execute the test files located in the `src/test` folder.
+
 ### Additional Information
 
 Ensure PostgreSQL, Kafka, and the `dbprocess` microservice are running for full application functionality.
-```
+
+---
+
+Feel free to adjust any details as needed!
