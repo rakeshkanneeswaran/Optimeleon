@@ -3,133 +3,103 @@ import prismaClient from "../prismaClient.ts";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { createPojectSchema, updatePojectSchema } from "../types";
 import { processDataUpdate } from "../kafka/kafka"; // Adjust path as needed
-
+import authMiddleware from "../authMiddleware.js";
 const JWT_SECRET = "your_secret_key";
 const router = Router();
 
 
+
+
 // POST route to create a project
-router.post("/", async (req, res) => {
-    console.log("something hit the server");
-    console.log(req.body);
-    console.log(req.cookies);
+router.post("/", authMiddleware, async (req, res) => {
 
     const parsedBody = createPojectSchema.safeParse(req.body);
-    const token = req.headers.authorization;
-
+    console.log(req.userId)
     if (!parsedBody.success) {
-        return res.status(400).send("Invalid input");
+        return res.status(400).json({
+            "message": "Invalid input"
+        })
     }
 
-    if (!token) {
-        return res.status(401).send("Unauthorized");
-    }
-
-    const cleanToken = token.replace("Bearer ", "");
     try {
-        const decoded = jwt.verify(cleanToken, JWT_SECRET) as JwtPayload;
-        if (!decoded.id) {
-            return res.status(403).send("Forbidden");
+        if (!req.userId) {
+            return res.status(400).json({
+                "message": "Invalid input"
+            })
         }
 
         const project = await prismaClient.project.create({
             data: {
                 name: parsedBody.data.name,
                 script: parsedBody.data.script,
-                userId: decoded.id,
+                userId: req.userId
             }
         });
 
         return res.json({ id: project.id });
     } catch (error) {
-        console.error("Error creating project:", error);
+        // console.error("Error creating project:", error);
         return res.status(500).send("Internal Server Error");
     }
 });
 
 // DELETE route to delete a project
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', authMiddleware, async (req, res) => {
     const { id } = req.params;
-    const token = req.headers.authorization?.split(' ')[1];
-
-    if (!token) {
-        return res.status(401).send("Unauthorized");
-    }
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
-        if (!decoded.id) {
-            return res.status(403).send("Forbidden");
-        }
 
         await prismaClient.project.delete({
             where: {
                 id: id,
-                userId: decoded.id,
+                userId: req.userId,
             }
         });
 
         res.status(200).json({ message: 'Project deleted successfully' });
     } catch (error) {
-        console.error('Error deleting project:', error);
+        // console.error('Error deleting project:', error);
         res.status(500).json({ message: 'Failed to delete project' });
     }
 });
 
 // GET route to fetch projects
-router.get("/", async (req, res) => {
-    const token = req.headers.authorization;
+router.get("/", authMiddleware, async (req, res) => {
 
-    if (!token) {
-        return res.status(401).send("Unauthorized");
-    }
-
-    const cleanToken = token.replace("Bearer ", "");
 
     try {
-        const decoded = jwt.verify(cleanToken, JWT_SECRET) as JwtPayload;
-        if (!decoded.id) {
-            return res.status(403).send("Forbidden");
-        }
+
+
 
         const projects = await prismaClient.project.findMany({
             where: {
-                userId: decoded.id
+                userId: req.userId
             }
         });
 
         return res.json({ projects });
     } catch (error) {
-        console.error("Error fetching projects:", error);
+        // console.error("Error fetching projects:", error);
         return res.status(500).send("Internal Server Error");
     }
 });
 
 // PUT route to update a project
-router.post("/update", async (req, res) => {
+router.post("/update", authMiddleware ,  async (req, res) => {
+    
+    try {
     const parsedBody = updatePojectSchema.safeParse(req.body);
-    const token = req.headers.authorization;
-
+    if (!req.userId) {
+        return res.status(400).json({
+            "message": "Invalid input"
+        })
+    }
     if (!parsedBody.success) {
         return res.status(400).send("Invalid input");
     }
-
-    if (!token) {
-        return res.status(401).send("Unauthorized");
-    }
-
-    const cleanToken = token.replace("Bearer ", "");
-
-    try {
-        const decoded = jwt.verify(cleanToken, JWT_SECRET) as JwtPayload;
-        if (!decoded.id) {
-            return res.status(403).send("Forbidden");
-        }
-
-        // Push data to Kafka
         await processDataUpdate({
             id: parsedBody.data.id,
-            userId: decoded.id,
+            userId: req.userId ,
             name: parsedBody.data.name,
             script: parsedBody.data.script
         });
@@ -138,7 +108,6 @@ router.post("/update", async (req, res) => {
             "message": 'Update request received and is being processed.'
         });
     } catch (error) {
-        console.error("Error updating project:", error);
         return res.status(500).send("Internal Server Error");
     }
 });

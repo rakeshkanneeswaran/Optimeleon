@@ -25,4 +25,7 @@ const signInSchema = z.object({
     password: z.string().max(10),
 })
 
+interface CustomRequest extends Request {
+    userId: string;
+}
 export { createPojectSchema, signInSchema, signUpSchema, updatePojectSchema }
