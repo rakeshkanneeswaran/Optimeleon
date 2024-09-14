@@ -1,11 +1,10 @@
 import jwt from "jsonwebtoken";
-import { PrismaClient } from "@prisma/client";
+
+import prismaClient from "../prismaClient.ts";
 import { Router } from "express";
 import { signUpSchema, signInSchema } from "../types";
 
 const JWT_SECRET = "your_secret_key";
-
-const prismaClient = new PrismaClient();
 const router = Router();
 
 
@@ -24,14 +23,10 @@ router.post("/signup", async (req, res) => {
             username: body.data.username
         }
     });
-    console.log(userExists)
-    console.log("2")
-    console.log("2")
 
     if (userExists) {
         return res.status(400).json({ message: "User already exists" });
     }
-    console.log("3")
     const user = await prismaClient.user.create({
         data: {
             username: body.data.username,
@@ -39,12 +34,11 @@ router.post("/signup", async (req, res) => {
             name: body.data.name,
         }
     });
-    console.log("4")
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
     console.log(token)
     res.json({
         token: token,
-        message: "Sign in successfull"
+        message: "Sign up successfull"
     });
 });
 
@@ -56,7 +50,6 @@ router.post("/signin", async (req, res) => {
             "message": "improper inputs"
         });
     }
-
     const user = await prismaClient.user.findFirst({
         where: {
             username: body.data.username,

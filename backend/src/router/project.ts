@@ -1,13 +1,12 @@
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import prismaClient from "../prismaClient.ts";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { createPojectSchema, updatePojectSchema } from "../types";
 import { processDataUpdate } from "../kafka/kafka"; // Adjust path as needed
 
-const prismaClient = new PrismaClient();
 const JWT_SECRET = "your_secret_key";
-
 const router = Router();
+
 
 // POST route to create a project
 router.post("/", async (req, res) => {
