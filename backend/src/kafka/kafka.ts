@@ -20,8 +20,6 @@ export async function createTopicIfNotExists() {
     try {
         await admin.connect();
         const topics = await admin.listTopics();
-        console.log("Topics:", topics);
-        
         if (!topics.includes(topic)) {
             console.log(`Creating topic ${topic}`);
             await admin.createTopics({
@@ -54,8 +52,6 @@ export async function processDataUpdate(data: DataToUpdate) {
                 value: JSON.stringify(data),
             }],
         });
-
-        console.log('Sent data to Kafka:', data);
     } catch (error) {
         console.error('Error processing data update:', error);
     } finally {

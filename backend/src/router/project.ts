@@ -20,14 +20,12 @@ router.post("/", authMiddleware, async (req, res) => {
             "message": "Invalid input"
         })
     }
-
     try {
         if (!req.userId) {
             return res.status(400).json({
                 "message": "Invalid input"
             })
         }
-
         const project = await prismaClient.project.create({
             data: {
                 name: parsedBody.data.name,
@@ -35,7 +33,6 @@ router.post("/", authMiddleware, async (req, res) => {
                 userId: req.userId
             }
         });
-
         return res.json({ id: project.id });
     } catch (error) {
         // console.error("Error creating project:", error);
@@ -66,10 +63,7 @@ router.delete('/delete/:id', authMiddleware, async (req, res) => {
 // GET route to fetch projects
 router.get("/", authMiddleware, async (req, res) => {
 
-
     try {
-
-
 
         const projects = await prismaClient.project.findMany({
             where: {

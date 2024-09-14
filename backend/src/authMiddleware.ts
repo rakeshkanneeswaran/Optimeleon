@@ -11,7 +11,7 @@ function authMiddleware(req: CustomRequest, res: Response, next: NextFunction) {
     const token = req.headers.authorization;
     
     if (!token) {
-        return res.status(401).send("Unauthorized");
+        return res.status(401).json({"message" : "Unauthorized" });
     }
 
     const cleanToken = token.replace("Bearer ", "");

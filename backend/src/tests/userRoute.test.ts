@@ -4,7 +4,7 @@ import request from 'supertest';
 import prismaClient from '../__mocks__/db';
 
 
-describe("Testing app for user rotues", () => {
+describe("Testing User route ", () => {
 
   prismaClient.user.findFirst.mockResolvedValue({
     id: "00acac65-c9ab-49aa-ab46-dc9ec2d05724",
@@ -51,4 +51,32 @@ describe("Testing app for user rotues", () => {
     expect(response.body.message).toBe("improper inputs");
 
   });
+
+
+  it("should return a valid JWT when signing up successfully", async () => {
+    prismaClient.user.findFirst.mockResolvedValue(null); 
+    prismaClient.user.create.mockResolvedValue({
+      id: "00acac65-c9ab-49aa-ab46-dc9ec2d05724",
+      username: "testUser",
+      password: "testPassword",
+      name: "Test Name",
+    });
+
+    const response = await request(app)
+      .post("/api/user/signup")
+      .send({
+        username: "testUser",
+        password: "testPassword",
+        name: "Test Name",
+      })
+      .set('Accept', 'application/json');
+      
+    expect(response.status).toBe(200);
+    expect(response.body.token).toMatch(/^[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+\.[A-Za-z0-9\-_]+$/);
+  });
+
+  
 }); 
+
+
+
