@@ -14,9 +14,11 @@ router.post("/signup", async (req, res) => {
     console.log(req.body);
     const body = signUpSchema.safeParse(req.body);
     if (!body.success) {
-        return res.status(400).send("Invalid input");
+        return res.status(422).json({
+            "message": "improper inputs"
+        });
     }
- console.log("1")
+    console.log("1")
     const userExists = await prismaClient.user.findFirst({
         where: {
             username: body.data.username
@@ -50,7 +52,9 @@ router.post("/signup", async (req, res) => {
 router.post("/signin", async (req, res) => {
     const body = signInSchema.safeParse(req.body);
     if (!body.success) {
-        return res.status(400).send("Invalid input");
+        return res.status(422).json({
+            "message": "improper inputs"
+        });
     }
 
     const user = await prismaClient.user.findFirst({
