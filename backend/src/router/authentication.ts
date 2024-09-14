@@ -16,17 +16,20 @@ router.post("/signup", async (req, res) => {
     if (!body.success) {
         return res.status(400).send("Invalid input");
     }
-
+ console.log("1")
     const userExists = await prismaClient.user.findFirst({
         where: {
             username: body.data.username
         }
     });
+    console.log(userExists)
+    console.log("2")
+    console.log("2")
 
     if (userExists) {
         return res.status(400).json({ message: "User already exists" });
     }
-
+    console.log("3")
     const user = await prismaClient.user.create({
         data: {
             username: body.data.username,
@@ -34,11 +37,12 @@ router.post("/signup", async (req, res) => {
             name: body.data.name,
         }
     });
-
+    console.log("4")
     const token = jwt.sign({ id: user.id }, JWT_SECRET);
+    console.log(token)
     res.json({
         token: token,
-        message: "Sign in successful"
+        message: "Sign in successfull"
     });
 });
 
@@ -52,9 +56,11 @@ router.post("/signin", async (req, res) => {
     const user = await prismaClient.user.findFirst({
         where: {
             username: body.data.username,
-            password: body.data.password // Plain text password (not recommended)
+            password: body.data.password
         }
     });
+
+    console.log(user?.id)
 
     if (!user) {
         return res.status(401).json({ message: "Invalid username or password" });
