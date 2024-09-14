@@ -1,4 +1,4 @@
-import prismaClientMocked from './__mocks__/db';
+import prismaClientMocked from '../__mocks__/db';
 import { PrismaClient } from '@prisma/client';
 
 

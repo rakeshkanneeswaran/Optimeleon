@@ -1,9 +1,9 @@
 import { Router } from "express";
-import prismaClient from "../prismaClient.ts";
+import prismaClient from "../libs/prismaClient.ts.js";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { createPojectSchema, updatePojectSchema } from "../types";
 import { processDataUpdate } from "../kafka/kafka"; // Adjust path as needed
-import authMiddleware from "../authMiddleware.js";
+import authMiddleware from "../libs/authMiddleware.js";
 const JWT_SECRET = "your_secret_key";
 const router = Router();
 
@@ -79,21 +79,21 @@ router.get("/", authMiddleware, async (req, res) => {
 });
 
 // PUT route to update a project
-router.post("/update", authMiddleware ,  async (req, res) => {
-    
+router.post("/update", authMiddleware, async (req, res) => {
+
     try {
-    const parsedBody = updatePojectSchema.safeParse(req.body);
-    if (!req.userId) {
-        return res.status(400).json({
-            "message": "Invalid input"
-        })
-    }
-    if (!parsedBody.success) {
-        return res.status(400).send("Invalid input");
-    }
+        const parsedBody = updatePojectSchema.safeParse(req.body);
+        if (!req.userId) {
+            return res.status(400).json({
+                "message": "Invalid input"
+            })
+        }
+        if (!parsedBody.success) {
+            return res.status(400).send("Invalid input");
+        }
         await processDataUpdate({
             id: parsedBody.data.id,
-            userId: req.userId ,
+            userId: req.userId,
             name: parsedBody.data.name,
             script: parsedBody.data.script
         });

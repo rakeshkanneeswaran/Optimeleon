@@ -2,7 +2,7 @@ import { it, describe, expect, vi } from 'vitest';
 import app from '..';
 import request from 'supertest';
 import prismaClient from '../__mocks__/db';
-import authMiddleware from '../authMiddleware';
+import authMiddleware from '../libs/authMiddleware';
 
 const mockToken = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNmE0NjNiLTg5ZGEtNGViOS04NDkwLWFiMDZlYzNjZjQ1YyIsImlhdCI6MTcyNjMzMDk5MX0.7xDTfMdFky5zAQ9NnSr2mniQsAVrRNOHQJubRhUh3n8"
 

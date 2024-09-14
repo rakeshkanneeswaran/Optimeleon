@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import prismaClient from "../prismaClient.ts.js";
+import prismaClient from "../libs/prismaClient.ts.js";
 import { Router } from "express";
 import { signInSchema } from "../types/index.js";
 import { signUpSchema } from "../types/index.js";
