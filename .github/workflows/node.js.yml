@@ -42,6 +42,5 @@ jobs:
       working-directory: ./backend
       
     - name: Start
-      run: |
-        nohup npm run start &
+      run: npm run start
       working-directory: ./backend
