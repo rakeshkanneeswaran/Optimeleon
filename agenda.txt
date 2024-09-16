@@ -20,7 +20,7 @@ Frontend Development
 
 Additional Tasks
 
-2. Explore GitHub Actions for CI/CD.✅ (AWS EC server)
+2. Explore GitHub Actions for CI/CD.✅ (used AWS EC2 server)
 
 
 Under consideration
