@@ -43,6 +43,10 @@ jobs:
       
     - name: Install PM2 globally
       run: npm install -g pm2
+
+    - name: build the tsc files into the dist folder
+      run: npm run build  
+      working-directory: ./backend
       
     - name: Start with PM2
       run: pm2 start dist/entrypoint.js --name "backend"
