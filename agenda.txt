@@ -20,7 +20,7 @@ Frontend Development
 
 Additional Tasks
 
-2. Explore GitHub Actions for CI/CD.
+2. Explore GitHub Actions for CI/CD.✅
 
 Under consideration
 Transition the whole codebase to Turborepo.(not require since we are having the single Frontend there for no need of sharing the compoents is needed)
