@@ -5,7 +5,7 @@ import { projectRouter } from './router/project';
 import { userRotuer } from './router/authentication';
 
 const app = express();
-createTopicIfNotExists()
+// createTopicIfNotExists()
 app.use(express.json())
 app.use(cors());
 
