@@ -13,7 +13,7 @@ const SignIn: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://127.0.0.1:3001/api/user/signin", {
+      const response = await axios.post("http://13.232.196.220/api/user/signin", {
         username,
         password,
       });
