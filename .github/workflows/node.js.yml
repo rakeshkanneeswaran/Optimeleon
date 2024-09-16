@@ -32,7 +32,7 @@ jobs:
 
     - name: Run Prisma generate
       run: npx prisma generate
-      working-directory: ./backend
+      working-directory: ./backend/database
 
     - name: Create .env file
       run: |
