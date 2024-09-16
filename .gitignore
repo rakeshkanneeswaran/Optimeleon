@@ -34,7 +34,7 @@ Thumbs.db
 *.tmp
 
 # npm package lock file
-package-lock.json
+
 yarn.lock
 
 # Prisma
