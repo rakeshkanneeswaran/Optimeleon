@@ -52,5 +52,9 @@ jobs:
       run: pm2 start dist/entrypoint.js --name "backend"
       working-directory: ./backend
 
+    - name: Start with PM2
+      run: pm2 restart "backend"
+      
+      working-directory: ./backend
     - name: Save PM2 process list
       run: pm2 save
