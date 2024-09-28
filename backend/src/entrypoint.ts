@@ -17,6 +17,7 @@ if (cluster.isPrimary) {
     })
 }
 else {
+    console.log(`worker ${process.pid} is running`);
     app.listen(3001, () => {
         console.log('Server is running on port 3001');
     });
